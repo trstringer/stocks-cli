@@ -38,19 +38,21 @@ function getStock(symbol, callback) {
   });
 }
 
-var i;
-for (i = 0; i < program.symbols.length; i++) {
-  getStock(program.symbols[i], (err, stock) => {
-    if (!err) {
-      if (stock) {
-        console.log(`${stock.name} (${stock.symbol}) - ${`$${parseFloat(stock.price).toFixed(2)}`}`);
+if (program.symbols) {
+  var i;
+  for (i = 0; i < program.symbols.length; i++) {
+    getStock(program.symbols[i], (err, stock) => {
+      if (!err) {
+        if (stock) {
+          console.log(`${stock.name} (${stock.symbol}) - ${`$${parseFloat(stock.price).toFixed(2)}`}`);
+        }
+        else {
+          console.log('stock not found');
+        }
       }
       else {
-        console.log('stock not found');
+        console.error(err);
       }
-    }
-    else {
-      console.error(err);
-    }
-  });
+    });
+  }
 }
