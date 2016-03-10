@@ -32,7 +32,7 @@ function getStock(symbol, callback) {
         callback(undefined, parsed.list.resources[0].resource.fields);
       }
       else {
-        callback(undefined, null);
+        callback(undefined, { symbol: symbol.toUpperCase() });
       }
     });
   });
@@ -43,11 +43,11 @@ if (program.symbols) {
   for (i = 0; i < program.symbols.length; i++) {
     getStock(program.symbols[i], (err, stock) => {
       if (!err) {
-        if (stock) {
+        if (stock.price) {
           console.log(`${stock.name} (${stock.symbol}) - ${`$${parseFloat(stock.price).toFixed(2)}`}`);
         }
         else {
-          console.log('stock not found');
+          console.log(`${stock.symbol} not found`);
         }
       }
       else {
