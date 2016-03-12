@@ -1,8 +1,9 @@
 const http = require('http');
 const program = require('commander');
+const packageConfig = require('./package.json');
 
 program
-  .version('0.0.1')
+  .version(packageConfig.version)
   .option('-s, --symbols <symbols>', 'stock symbol(s) to lookup', parseSymbols)
   .parse(process.argv);
 
